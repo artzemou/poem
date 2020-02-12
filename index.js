@@ -16,4 +16,4 @@ app.use('/img', express.static(__dirname + '/img'))
 app.use('/', router)
 app.listen(process.env.port || 8000)
 
-console.log('Running at Port 8000')
+console.log('Running at http://localhost:8000')

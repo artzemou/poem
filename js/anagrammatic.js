@@ -20,6 +20,9 @@ $('document').ready(function () {
             $('p, pre').on('click', function () {
                 // $('.opened').removeClass('opened').addClass('closed')
                 $(this).toggleClass('closed opened') 
+                console.log($(this).width())
+                console.log($(this).height())
+                // $(this).width($(this).height())
             })
             // $('.lisible').on('click', function(){
             //     console.log($(this).text().split(''))
@@ -33,6 +36,7 @@ $('document').ready(function () {
 function countOccurences(tab) {
     var result = {};
     var sortedResult = []
+    console.log(tab)
     tab.forEach(function (elem) {
         if (elem in result) {
             result[elem] = ++result[elem];
