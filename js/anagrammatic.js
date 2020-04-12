@@ -36,7 +36,7 @@ $('document').ready(function () {
 function countOccurences(tab) {
     var result = {};
     var sortedResult = []
-    console.log(tab)
+    
     tab.forEach(function (elem) {
         if (elem in result) {
             result[elem] = ++result[elem];
