@@ -54,7 +54,7 @@ p, pre {
   margin: 3%;
   /* word-wrap: break-word; */
   white-space: pre-wrap;
-  transition: transform linear 1000ms;
+  /* transition: transform linear 1000ms; */
 }
 
 p.closed:hover, pre.closed:hover {
@@ -107,6 +107,13 @@ p.lisible .reverse, pre.lisible .reverse {
   display: inline-block;
 }
 
+pre.solo{
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
 .hidden {
   display: none;
 }
@@ -124,6 +131,10 @@ p.lisible .reverse, pre.lisible .reverse {
 
 pre.line-height-2-1{
   line-height: 2.1;
+}
+
+b {
+  font-weight: 400;
 }
 
 
@@ -146,3 +157,24 @@ pre.line-height-2-1{
     margin: 0 0 2rem;
   }
 }
+
+
+@keyframes aminate {
+  0% {
+    margin: 0
+  }
+  50% {
+    margin: 0 1rem 1rem;
+    font-size: 10px;
+  }
+  100% {
+    margin: 0
+  }
+}
+
+/* pre, p {
+  transition: all 3s ease;
+  animation-duration: 3s;
+  animation-name: aminate;
+  animation-iteration-count: 1;
+} */
