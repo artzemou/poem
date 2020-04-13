@@ -1,18 +1,22 @@
+function getUrlParams(search) {
+    const hashes = search.slice(search.indexOf('?') + 1).split('&')
+    const params = {}
+    hashes.map(hash => {
+        const [key, val] = hash.split('=')
+        params[key] = decodeURIComponent(val)
+    })
+    return params
+}
+
 $('document').ready(function () {
     var query = {}
-    console.log(location.search)
-    if (location.search) {
-        location.search.substr(1).split`&`.forEach(item => {
-            if(item !== 'search=') {
-                let [k,v] = item.split`=`; v = v && decodeURIComponent(v); (query[k] = query[k] || []).push(v)
-                search(query.search[0])
-                setTimeout(function () {
-                    $('p, pre').removeClass('closed')            
-                }, 400)
-                console.log(query.search[0])
-            }
-            else search('mot')
-        })
+    let params = getUrlParams(window.location.search)
+    // console.log(params)
+    if (params.search) {
+        search(params.search, params.shadow)
+            setTimeout(function () {
+                $('p, pre').removeClass('closed')            
+        }, 400)
     }
     else {search('mot')}    
 })
@@ -35,32 +39,25 @@ function init(){
 
     setTimeout(function () {
         $('p, pre').addClass('lisible float')
-        // $('p, pre').each(function (){
-            
-        // })
         setTimeout(function () {
             $('p, pre').addClass('closed')
             $('p, pre').on('click', function () {
-                // $('.opened').removeClass('opened').addClass('closed')
                 $(this).toggleClass('closed') 
                 console.log($(this).width())
                 console.log($(this).height())
-                // $(this).width($(this).height())
             })
-            // $('.lisible').on('click', function(){
-            //     console.log($(this).text().split(''))
-            //     console.log(aleatoire($(this).text().split('')), typeof aleatoire($(this).text().split('')))
-            //     $(this).html(aleatoire($(this).text().split('')))
-            // })
+
             $('mark, b').click(function(e) {
                 str = getMarkInnerText()
-                if(str) location.search = "search=" + str
-                    .toLowerCase()
-                    .replace(' ', '')
-                    .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
-                    .trim()
+                if(str) {
+                    location.search = "search=" + str
+                        .toLowerCase()
+                        .replace(' ', '')
+                        .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+                        .trim()
+                }
+                
                 else location.search = "search=moteur"
-                console.log(str)
             })          
         }, 300)
        
@@ -115,8 +112,8 @@ function aleatoire(str) {
     return result
 }
 
-let  all = []
-function search(str) {
+let  all = [], SHadō = []
+function search(str, shadow) {
     
     if(all.length > 0) {
         all.forEach(pre => {
@@ -129,30 +126,32 @@ function search(str) {
         $this.removeClass('closed')
         str = str.toLowerCase()
         all =[ ...all, $this]
-        
-        //.replace(/(<([^>]+)>)/ig,"")
-        // var pattern = /([A-Za-zÀ-ÖØ-öø-ÿ])/g; // wrap letters
-        // var pattern = /\b($word)\b/i
-        
-        // $this.html($this.text()
-        //     .replace(pattern,replaceWith))
-        // console.log($this.html().replace(pattern,replaceWith))
+             
+        if($this.text().length > 1 ) {
+            let ponct = $this.text()
+            ponct = ponct.replace(/([0-9-A-Za-zÀ-ÖØ-öø-ÿ/]+[^↵])/g, '')
+            SHadō = [ ...SHadō, `<pre style="width: 25%;line-height: 1.1;font-size: 20px;letter-spacing: -13px;font-size: 13px;line-height: 2px">${ponct}</pre>`]
+            // console.log($this.html())
+
+            //  console.log($this.html().match(/<sub>(.*?)<\/sub>/g))
+        }
+
+
         var pattern = /([0-9-A-Za-zÀ-ÖØ-öø-ÿ_/]+[^<([^>])/g; // wrap words
         // var pattern = /^([^<>%$])/g
         var replaceWith = '<mark>$1</mark>'; 
         // $(this).html($(this).text())
-        console.log(str)
+        // console.log(str)
         if ($this.text().includes(str) || $this.text().includes(capitalize(str))){
             if(str === 'b') {
+                if($this.html) $this.html($this.html().replace(pattern, replaceWith))
                 $this.html($this.text()
-                    .replace(pattern, replaceWith)
                     .replace(/\[b\]/g, '<b>').replace(/\[\/b\]/g, '</b>')
                     .replace(/\[B\]/g, '<b>').replace(/\[\/B\]/g, '</b>'))
             }
             else{
-                console.log(capitalize(str))
+                if($this.html) $this.html($this.html().replace(pattern, replaceWith))
                 $this.html($this.text()
-                    .replace(pattern, replaceWith)
                     .replace(new RegExp(str, "g"), str.bold())
                     .replace(new RegExp(capitalize(str), "g"), capitalize(str).bold())
                     .replace(new RegExp(reverseString(str), "g"), reverseString(str).bold())
@@ -166,9 +165,14 @@ function search(str) {
     $( ".container" ).html( "" )
     preList.forEach((pre, i) => {
         let max = preList.length , min = 0
-        console.log(max, min)
-        if(preList.length > 3) $( ".container" ).append( preList[Math.floor(Math.random()*3)] )
-        else $( ".container" ).append( preList[Math.floor(Math.random()*preList.length)] )
+        if(preList.length > 9){
+            if(shadow) $( ".container" ).append( SHadō[Math.floor(Math.random()*preList.length)])
+            else $( ".container" ).append( preList[Math.floor(Math.random() * 9)] )
+        } 
+        else {
+            if(shadow) $( ".container" ).append( SHadō[Math.floor(Math.random()*preList.length)])
+            else $( ".container" ).append( preList[Math.floor(Math.random()*preList.length)])
+        }
         // $( ".container" ).append(pre)
     })
     init()
