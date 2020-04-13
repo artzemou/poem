@@ -144,14 +144,17 @@ function search(str, shadow) {
         // console.log(str)
         if ($this.text().includes(str) || $this.text().includes(capitalize(str))){
             if(str === 'b') {
-                if($this.html) $this.html($this.html().replace(pattern, replaceWith))
+                // if($this.html) $this.html($this.html().replace(pattern, replaceWith))
                 $this.html($this.text()
+                    .replace(pattern, replaceWith)
                     .replace(/\[b\]/g, '<b>').replace(/\[\/b\]/g, '</b>')
                     .replace(/\[B\]/g, '<b>').replace(/\[\/B\]/g, '</b>'))
             }
             else{
-                if($this.html) $this.html($this.html().replace(pattern, replaceWith))
+                // if($this.html) $this.html($this.html().replace(/\<[^>]*>/g, "[[sup]]"))
+
                 $this.html($this.text()
+                    .replace(pattern, replaceWith)
                     .replace(new RegExp(str, "g"), str.bold())
                     .replace(new RegExp(capitalize(str), "g"), capitalize(str).bold())
                     .replace(new RegExp(reverseString(str), "g"), reverseString(str).bold())
