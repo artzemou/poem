@@ -4,10 +4,6 @@ const path = require('path')
 
 router
   .get('/*', function(req, res) {
-    PythonShell.runString('x=1+1;print(x)', null, function (err) {
-      if (err) throw err;
-      console.log('finished');
-    });
     res.sendFile(path.join(__dirname + '/index.html'))
   })
   .post('/', function(req, res) { 
