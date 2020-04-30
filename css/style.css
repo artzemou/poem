@@ -50,7 +50,10 @@ mark{
   transition: all linear 250ms;
 }
 mark:hover{
-  font-size: 28px;
+  font-size: 23px;
+}
+h1{
+  font-family: 'Roboto Condensed', sans-serif;
 }
 p, pre {
   font-family: 'Roboto Condensed', sans-serif;
@@ -130,7 +133,7 @@ pre.solo{
   display: none;
 }
 
-.bobyright {
+.bobyright, span {
   margin-left: -1.8rem;
   padding-right: .5rem;
   padding-top: .1rem;
