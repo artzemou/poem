@@ -1,6 +1,6 @@
 module.exports = {
   apps : [{
-    name: 'BoomBox',
+    name: 'Poem',
     script: './index.js',
     instances: 1,
     autorestart: true,
