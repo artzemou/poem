@@ -160,7 +160,7 @@ def formula(m):
     return "".join(map(lambda x: x + str(d[x]), sorted(d)))
 
 
-# print (formula("ne"))
+# print (#formula("ne"))
 
 # d=load_dict("liste.de.mots.francais.frgut.txt")
 # write_dict(d)
