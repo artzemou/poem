@@ -1,18 +1,28 @@
 const express = require('express')
-const app = express()
-const router = require('./router.js')
+const path = require('path')
+const {PythonShell} = require('python-shell')
+const PORT = process.env.PORT || 5000
 const bodyParser = require('body-parser')
 
 
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(bodyParser.json())
-app.use('/favicon', express.static(__dirname + '/favicon'))
-app.use('/css', express.static(__dirname + '/css'))
-app.use('/js', express.static(__dirname + '/js'))
-app.use('/img', express.static(__dirname + '/img'))
-// app.use('/', router)
-app.get('/*', function(req, res) {
+
+express()
+  .use('/favicon', express.static(__dirname + '/favicon'))
+  .use('/css', express.static(__dirname + '/css'))
+  .use('/js', express.static(__dirname + '/js'))
+  .use('/img', express.static(__dirname + '/img'))
+  .use(bodyParser.urlencoded({extended: true}))
+  .use(bodyParser.json())
+  .get('/*', function(req, res) {
     res.sendFile(path.join(__dirname + '/index.html'))
   })
-app.listen(process.env.port || 8000)
-console.log('Running at http://localhost:8000')
+  .post('/', function(req, res) { 
+    console.log(req.body)
+    PythonShell.run('anagram.py', {args:[req.body.str]}, function (err, results) {
+      if (err) throw err;
+      console.log(results);
+      res.send(results[0])
+    });
+    
+  })
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
