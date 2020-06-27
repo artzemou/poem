@@ -7,10 +7,8 @@ function getUrlParams(search) {
     })
     return params
 }
-console.log($('body').text())
 
 $('document').ready(function () {
-    console.log($('body').text())
     var query = {}
     let params = getUrlParams(window.location.search)
     if (params.search) {
