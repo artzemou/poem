@@ -176,13 +176,14 @@ function search(str, shadow) {
         all.forEach(pre => {
             $( ".container" ).append( pre )
         })
+        
     }
     let preList = []
     $('p, pre').each(function() {
         var $this = jQuery(this);
         $this.removeClass('closed')
         str = str.toLowerCase()
-        all =[ ...all, $this]
+        all = [ ...all, $this]
              
         if($this.text().length > 1 ) {
             let ponct = $this.text()
@@ -202,6 +203,10 @@ function search(str, shadow) {
 
     })
     $( ".container" ).html( "" )
+    if(preList.length===0) {
+        search('Oops')
+    }
+    // $( ".container" ).append( all)
     $( ".container" ).append( preList[Math.floor(Math.random()*preList.length)])
     // preList.forEach((pre, i) => {
     //     let max = preList.length , min = 0
