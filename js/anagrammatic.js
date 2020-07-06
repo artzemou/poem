@@ -53,6 +53,18 @@ function init(){
         // console.log(character)
         console.log($(this).text())
         console.log(countOccurences(character))
+        console.log($(this)[0].classList[0])
+        console.log($(this).width())
+        console.log($(this).height())
+        setTimeout(()=> {
+            let dim = ($(this).width() + $(this).height()) / 2
+            $(this).width(dim)
+            $(this).height(dim)
+
+        }, 300)
+        // console.log($(this).width())
+        // console.log($(this).height())
+
         
     })
 
@@ -62,8 +74,7 @@ function init(){
             $('p, pre').addClass('closed')
             $('p, pre').on('click', function () {
                 $(this).toggleClass('closed') 
-                console.log($(this).width())
-                console.log($(this).height())
+                
             })
 
             $('pre, b').click(function(e) {
@@ -82,15 +93,17 @@ function init(){
                 
                     } while (range.toString().indexOf(' ') == -1 && range.toString().trim() != '' && range.endOffset < node.length);
                     var str = range.toString().trim();
+                    console.log(str)
                 }
                 catch {
-                    console.debug('Bold element clicked')
+                    // console.debug('Bold element clicked')
                     var str = s.anchorNode.nodeValue.trim()
                 }
                 
                 
                 str = str.toLowerCase().replace(/[.,\/#!?$%\^&\*;:{}=\-_“'"`~()]/g,"").trim()
-
+                console.log(str.split(' '))
+                if(str.split(' ').length > 1) str = str.split(' ')[Math.floor(Math.random()*str.split(' ').length)]
                 fetch("/", {
                     method: 'POST',
                     headers: {

@@ -55,6 +55,11 @@ mark:hover{
 h1{
   font-family: 'Roboto Condensed', sans-serif;
 }
+b{
+  font-weight: 300;
+  font-size: 1.8rem;
+}
+
 p, pre {
   font-family: 'Roboto Condensed', sans-serif;
   /* font-family: 'Lucida Console', 'Courier New', monospace; */
@@ -106,6 +111,10 @@ p.lisible, pre.lisible {
   /*max-width: 25%;*/
   /*white-space: nowrap;*/
 }
+p.lisible:hover, pre.lisible:hover {
+  overflow: visible;
+
+}
 
 p.lisible.closed, pre.lisible.closed {
   line-height: .8;
@@ -148,9 +157,6 @@ pre.line-height-2-1{
   line-height: 2.1;
 }
 
-b {
-  font-weight: 400;
-}
 
 
 @keyframes pulse {
