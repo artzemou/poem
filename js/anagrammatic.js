@@ -56,12 +56,12 @@ function init(){
         console.log($(this)[0].classList[0])
         console.log($(this).width())
         console.log($(this).height())
-        setTimeout(()=> {
-            let dim = ($(this).width() + $(this).height()) / 2
-            $(this).width(dim)
-            $(this).height(dim)
+        // setTimeout(()=> {
+        //     let dim = ($(this).width() + $(this).height()) / 2
+        //     $(this).width(dim)
+        //     $(this).height(dim)
 
-        }, 300)
+        // }, 300)
         // console.log($(this).width())
         // console.log($(this).height())
 
