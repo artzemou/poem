@@ -44,15 +44,17 @@ $('document').ready(function () {
 function init(){
 
     $('p, pre').each(function () {
-        var character = []
+        var symbols = []
         var str = $(this).text().toLowerCase().replace(/\s+/g, '')
         // console.log(str.length)
         for (var i = 0; i < str.length; i++) {
-            character.push(str.substr(i, 1))
+            symbols.push(str.substr(i, 1))
         }
         // console.log(character)
         console.log($(this).text())
-        console.log(countOccurences(character))
+        console.log(countOccurences(symbols))
+        let extraSymbols = countOccurences(symbols).map((symbol)=> (symbol.sign))
+        console.log(extraSymbols )
         console.log($(this)[0].classList[0])
         console.log($(this).width())
         console.log($(this).height())
@@ -165,7 +167,7 @@ function countOccurences(tab) {
 
     for (let [key, value] of Object.entries(result)) {
         if (!(value % 2 === 0)) sortedResult.push({
-            letter: key,
+            sign: key,
             count: value
         })
     }
