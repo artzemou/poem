@@ -27,6 +27,12 @@ body {
   box-sizing: border-box;
 }
 
+header {
+  max-width: 500px;
+}
+.container{
+  transform: translateY(-120px);
+}
 code {
   font-family: 'Josefin Slab', serif;
   font-family: 'Roboto Condensed', sans-serif;
@@ -60,7 +66,7 @@ b{
   font-size: 1.8rem;
 }
 
-p, pre {
+p, pre, header {
   font-family: 'Roboto Condensed', sans-serif;
   /* font-family: 'Lucida Console', 'Courier New', monospace; */
   font-weight: 100;
@@ -98,7 +104,7 @@ p sup sup, pre sup sup {
   font-size: 10px;
 }
 
-p.unlisible, pre.unlisible {
+p.unlisible, pre.unlisible, header {
   line-height: .2;
   font-size: 20px;
   letter-spacing: 0;
@@ -154,7 +160,13 @@ pre.solo{
 }
 
 pre.line-height-2-1{
-  line-height: 2.1;
+  /* line-height: 2.1; */
+}
+.gost {
+  transform: translate3d(50%, -100%, 0);
+  z-index: 0;
+  color: rgba(0,0,0,.5);
+  color: white;
 }
 
 

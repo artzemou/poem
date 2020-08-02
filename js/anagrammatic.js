@@ -11,6 +11,7 @@ function getUrlParams(search) {
 $('document').ready(function () {
     var query = {}
     let params = getUrlParams(window.location.search)
+    console.log(params)
     if (params.search) {
         search(params.search, params.shadow)
         setTimeout(function () {
@@ -54,7 +55,7 @@ function init(){
         console.log($(this).text())
         console.log(countOccurences(symbols))
         let extraSymbols = countOccurences(symbols).map((symbol)=> (symbol.sign))
-        console.log(extraSymbols )
+        console.log(extraSymbols)
         console.log($(this)[0].classList[0])
         console.log($(this).width())
         console.log($(this).height())
@@ -104,8 +105,8 @@ function init(){
                 
                 
                 str = str.toLowerCase().replace(/[.,\/#!?$%\^&\*;:{}=\-_“'"`~()]/g,"").trim()
-                console.log(str.split(' '))
                 if(str.split(' ').length > 1) str = str.split(' ')[Math.floor(Math.random()*str.split(' ').length)]
+                console.log(str)
                 fetch("/", {
                     method: 'POST',
                     headers: {
@@ -119,8 +120,7 @@ function init(){
                         console.log(data) 
                         data.map((w)=> {
                             console.debug(w)
-                            // search(w)
-                            location.search = "search=" + data[Math.floor(Math.random()*data.length)]
+                            location.search = 'search=' + data[Math.floor(Math.random()*data.length)]
                         })
                         
                      })
@@ -129,6 +129,11 @@ function init(){
         }, 300)
        
     }, 0)
+
+    // $('h1').click(function(){
+    //     // search('fonctionnalité')
+    //     location.search = 'search=' +'fonctionnalité'
+    // })
 }
 
 function getSelectionHtml() {
@@ -188,7 +193,7 @@ let  all = [], SHadō = []
 function search(str, shadow) {
     
     if(all.length > 0) {
-        all.forEach(pre => {
+        all.forEach( pre => {
             $( ".container" ).append( pre )
         })
         
@@ -223,6 +228,8 @@ function search(str, shadow) {
     }
     // $( ".container" ).append( all)
     $( ".container" ).append( preList[Math.floor(Math.random()*preList.length)])
+    $('pre').append('<div class="gost"></div>')
+    $('.gost').append(shuffleArray($('pre').text().split('')).join(''))
     // preList.forEach((pre, i) => {
     //     let max = preList.length , min = 0
     //     if(preList.length > 9){
@@ -249,7 +256,13 @@ const capitalize = (s) => {
     }   
 }
 
-function reverseString(str) {
+const reverseString = (str) => {
   return (str === '') ? '' : reverseString(str.substr(1)) + str.charAt(0);
 }
+
+const shuffleArray = arr => arr
+        .map(a => [Math.random(), a])
+        .sort((a, b) => a[0] - b[0])
+        .map(a => a[1]);
+      
 
