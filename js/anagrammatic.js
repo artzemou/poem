@@ -19,7 +19,8 @@ $('document').ready(function () {
         }, 400)
     }
     else {
-        search('moteur')
+        // search('moteur')
+        search('Pense-bête')
         setTimeout(function () {
                 $('p, pre').removeClass('closed')            
         }, 400)
@@ -104,7 +105,8 @@ function init(){
                 }
                 
                 
-                str = str.toLowerCase().replace(/[.,\/#!?$%\^&\*;:{}=\-_“'"`~()]/g,"").trim()
+                str = str.toLowerCase().replace(/[.,\/#!?$%\^&\*;:{}=\_“'"`~()]/g,"").trim()
+                // str = str.toLowerCase().replace(/[.,\/#!?$%\^&\*;:{}=\-_“'"`~()]/g,"").trim()
                 if(str.split(' ').length > 1) str = str.split(' ')[Math.floor(Math.random()*str.split(' ').length)]
                 console.log(str)
                 fetch("/", {
@@ -117,7 +119,7 @@ function init(){
                 })
                     .then(function(res){ return res.json(); })
                     .then(function(data){
-                        console.log(data) 
+                        if (!data.length) data.push(str)
                         data.map((w)=> {
                             console.debug(w)
                             location.search = 'search=' + data[Math.floor(Math.random()*data.length)]
@@ -191,7 +193,7 @@ function aleatoire(str) {
 
 let  all = [], SHadō = []
 function search(str, shadow) {
-    
+    console.log(str)
     if(all.length > 0) {
         all.forEach( pre => {
             $( ".container" ).append( pre )
@@ -210,8 +212,8 @@ function search(str, shadow) {
             ponct = ponct.replace(/([0-9-A-Za-zÀ-ÖØ-öø-ÿ/]+[^↵])/g, '')
             SHadō = [ ...SHadō, `<pre style="width: 2<5%;line-height: 1.1;font-size: 20px;letter-spacing: -13px;font-size: 13px;line-height: 2px">${ponct}</pre>`]
         }
-
-        if ($this.text().includes(str) || $this.text().includes(capitalize(str))){
+        if ($this.text().toLowerCase().includes(str) || $this.text().includes(str) || $this.text().includes(capitalize(str))){
+            console.log(str)
             $this.html($this.html()
                 .replace(new RegExp(str, "g"), str.bold())
                 .replace(new RegExp(capitalize(str), "g"), capitalize(str).bold())
@@ -222,14 +224,16 @@ function search(str, shadow) {
         }
 
     })
+    console.log(preList)
     $( ".container" ).html( "" )
     if(preList.length===0) {
         search('Oops')
     }
     // $( ".container" ).append( all)
-    $( ".container" ).append( preList[Math.floor(Math.random()*preList.length)])
-    $('pre').append('<div class="gost"></div>')
-    $('.gost').append(shuffleArray($('pre').text().split('')).join(''))
+    let pre = preList[Math.floor(Math.random()*preList.length)]
+    $( ".container" ).append( pre)
+    // $('pre').append('<div class="gost"></div>')
+    // $('.gost').html(shuffleArray($('pre').text().split('')).join(''))
     // preList.forEach((pre, i) => {
     //     let max = preList.length , min = 0
     //     if(preList.length > 9){

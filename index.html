@@ -33,14 +33,14 @@
 
 <body>
   <div id="scene">
-    <header>
-        <h4>
-          Pense-Bête : <sub style="color: white;transform: translateX(-100px)translateY(-100px); float:right;white-space:break-spaces;font-size:1rem; font-weight: lighter;line-height: 1.1;font-weight: 100;"> <sup style=""></sup></sub> 
-        </h4>
-        <!-- <span>fonctionnalité conditionnant le flou</span><br>
+    <!-- <header>
+        <h1>
+          Pense-Bête : <sub style="transform: translateX(0px)translateY(-100px); float:right;white-space:break-spaces;font-size:1rem; font-weight: lighter;line-height: 1.1;font-weight: 100;"> <sup style=""></sup></sub> 
+        </h1>
+        <span>fonctionnalité conditionnant le flou</span><br>
         <span style="transform:translate3d(-3px,-12px ,0); display:block">la bipolarités louée à aide mémoire <sup> : `-ˆ</sup></span>
-        <span style="font-size: 2rem; margin-left: .5rem; display:block;">ou où `</span><br> -->
-    </header>
+        <span style="font-size: 2rem; margin-left: .5rem; display:block;">ou où `</span><br>
+    </header> -->
     <div class="container">
       <pre>&because;</pre>
       
@@ -69,12 +69,13 @@
               vlan <sup>( é é é )<sup> ( x )</sup></sup>
           toc ! ! /. : ˜ `
       </pre>
-      <div class="® pense-bete hidden">
-        <span style="display:none;">Pense-Bête :</span>
+      <pre class="®">
+        Pense-Bête :
+
         ` fonctionnalité conditionnant le flou       
-        la bi:(polarités louée à aide mémoire  `-ˆ
-        ou où
-      </div>
+        ou, où, la bi-polarités louée à aide mémoire  `:ˆ
+        
+      </pre>
       <pre class="®">
         conata est nequicquam :
 
@@ -2758,17 +2759,17 @@
       * @var first(int) premier index à prendre en compte
       * @return (string) affiche dans les logs le tableau permuté
       */
-      let str = $('.pense-bete').text().split('')
-      // const shuffleArray = arr => arr
-      //   .map(a => [Math.random(), a])
-      //   .sort((a, b) => a[0] - b[0])
-      //   .map(a => a[1]);
+      // let str = $('.pense-bete').text().split('')
+      // // const shuffleArray = arr => arr
+      // //   .map(a => [Math.random(), a])
+      // //   .sort((a, b) => a[0] - b[0])
+      // //   .map(a => a[1]);
       
-      alea = shuffleArray(str).join('')
-      console.log(alea, str)
-      $('.pense-bete').append(alea)
-      $('header sub').prepend(str.join('').replace('Pense-Bête :', '').replace('ou où', '') +') ou où ')
-      $('header sup').append(alea +' )')
+      // alea = shuffleArray(str).join('')
+      // console.log(alea, str)
+      // $('.pense-bete').append(alea)
+      // $('header sub').prepend(str.join('').replace('Pense-Bête :', '').replace('ou où', '') +') ou où ')
+      // $('header sup').append(alea +' )')
     </script>
 
 </body>
