@@ -11,7 +11,12 @@ function getUrlParams(search) {
 $('document').ready(function () {
     var query = {}
     let params = getUrlParams(window.location.search)
-    console.log(params)
+    // console.log(params)
+    // let words = $('.container').text().replace(/[.,\/#!?$%\^&\*;:◯{}=\_“'"`~()]/g,"").trim().split(' ').filter(word => word!=="")
+    // words = Array.from(new Set(words))
+    // words.map(word => {
+    //     $('nav ul').append('<li>'+word+'</li>')
+    // })
     if (params.search) {
         search(params.search, params.shadow)
         setTimeout(function () {
@@ -193,13 +198,13 @@ function aleatoire(str) {
 
 let  all = [], SHadō = []
 function search(str, shadow) {
-    console.log(str)
-    if(all.length > 0) {
-        all.forEach( pre => {
-            $( ".container" ).append( pre )
-        })
+    
+    // if(all.length > 0) {
+    //     all.forEach( pre => {
+    //         $( ".container" ).append( pre )
+    //     })
         
-    }
+    // }
     let preList = []
     $('p, pre').each(function() {
         var $this = jQuery(this);
