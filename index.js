@@ -20,6 +20,7 @@ express()
     console.log(req.body)
     PythonShell.run('anagram.py', {args:[req.body.str]}, function (err, results) {
       if (err) throw err;
+      if (results[0] === '[]') results[0] = '["oops"]'
       console.log(results);
       res.send(results[0])
     });
