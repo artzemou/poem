@@ -7,8 +7,20 @@ function getUrlParams(search) {
     })
     return params
 }
-var dico = true
+
+function  getAllWord (words) {
+    words= Array.from(new Set(words.filter(el=>el.trim().length>1)))
+    console.log(words.length)
+    shuffleArray(words).map(word=>{
+       console.log(word)
+       setTimeout(()=>{
+           addElement(word)
+       }, 10)
+    })
+}
+var dico = false
 $('document').ready(function () {
+    let words = $(".container").text().split(' ')
     var query = {}
     let params = getUrlParams(window.location.search)
     // console.log(params)
@@ -17,6 +29,7 @@ $('document').ready(function () {
     // words.map(word => {
     //     $('nav ul').append('<li>'+word+'</li>')
     // })
+
     if(!dico) {
         $('p, pre').addClass('lisible float')
 
@@ -43,7 +56,7 @@ $('document').ready(function () {
 
             // $('.flux').append( $(this).html())  
         })
-        
+        getAllWord(words)
         return
     }
 
@@ -61,6 +74,9 @@ $('document').ready(function () {
             $('p, pre').removeClass('closed')
         }, 400)
     }
+
+    
+   
 
 
     // just grab a DOM element
@@ -229,9 +245,23 @@ function aleatoire(str) {
     return result
 }
 
+function addElement (word) {
+    console.log(word)
+    // crée un nouvel élément span
+    let span = document.createElement("span");
+    // et lui donne un peu de contenu
+    word = document.createTextNode(word);
+    // ajoute le nœud texte au nouveau span créé
+    span.appendChild(word);
+    
+    // ajoute le nouvel élément créé et son contenu dans le DOM
+    $('#words-list').append(span);
+  }
+
 let all = [], SHadō = []
 function search(str, shadow) {
-
+    
+   
     // if(all.length > 0) {
     //     all.forEach( pre => {
     //         $( ".container" ).append( pre )
