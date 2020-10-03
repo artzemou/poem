@@ -56,7 +56,7 @@ $('document').ready(function () {
 
             // $('.flux').append( $(this).html())  
         })
-        getAllWord(words)
+        // getAllWord(words)
         return
     }
 
