@@ -5,7 +5,6 @@ const PORT = process.env.PORT || 5000
 const bodyParser = require('body-parser')
 
 
-
 express()
   .use('/favicon', express.static(__dirname + '/favicon'))
   .use('/css', express.static(__dirname + '/css'))
@@ -21,7 +20,6 @@ express()
     PythonShell.run('anagram.py', {args:[req.body.str]}, function (err, results) {
       if (err) throw err;
       if (results[0] === '[]') results[0] = '["oops"]'
-      console.log(results);
       res.send(results[0])
     });
     
