@@ -1,5 +1,5 @@
 """
-    generate all possible anagrams of a string, ie, permutations of the chars
+    generate all possible anagrams of a string
 """
 import pickle
 import sys
@@ -160,18 +160,15 @@ def formula(m):
     return "".join(map(lambda x: x + str(d[x]), sorted(d)))
 
 
-# print (#formula("ne"))
+# def buildDictionary(m):
+#     # d=load_dict("liste.de.mots.francais.frgut.txt")
+#     d=load_dict("liste_francais.txt")
+#     write_dict(d)
 
-# d=load_dict("liste.de.mots.francais.frgut.txt")
-# write_dict(d)
 d = read_dict()
 m = "toupie"
-# print(json.dumps(sys.argv[1]))
 m = sys.argv[1]
-# print( "\n".join(sys.argv))
-# print (formula(m))
-# print(json.dumps(d.get(formula(m))))
-# print(d.get(formula(m)))
+
 try:
     print(json.dumps(list(d.get(formula(m)))))
 except:

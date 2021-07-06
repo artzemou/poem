@@ -12,15 +12,18 @@ express()
   .use('/img', express.static(__dirname + '/img'))
   .use(bodyParser.urlencoded({extended: true}))
   .use(bodyParser.json())
+  .get('/anagramme', function(req, res) {
+    res.sendFile(path.join(__dirname + '/anagramme.html'))
+  })
   .get('/*', function(req, res) {
     res.sendFile(path.join(__dirname + '/index.html'))
   })
   .post('/', function(req, res) { 
-    console.log(req.body)
+    console.log(req.body.str)
     PythonShell.run('anagram.py', {args:[req.body.str]}, function (err, results) {
       if (err) throw err;
       if (results[0] === '[]') results[0] = '["oops"]'
-      res.send(results[0])
+      res.json(results[0]);
     });
     
   })

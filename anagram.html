@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Trouver une anagramme</h3>
+    <form action="/" method="post">
+        <input type="text" name="str">
+        <input type="submit">
+    </form>
+    <ul></ul>
+    <!-- src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script >
+        $('form').on('submit' , (e)=> {
+            e.preventDefault()
+            document.querySelector('ul').innerHTML = null
+            fetch('/', {
+                method: 'post',
+                headers: {
+                  'Accept': 'application/json, text/plain, */*',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({str: $('[name=str]').val()})
+              }).then(res => res.json())
+                .then(res => {
+                    console.log(res)
+                    
+                    JSON.parse(res).forEach(w => {
+                        let li = document.createElement('li');
+                        li.textContent = w;
+                        document.querySelector('ul').appendChild(li)
+                    });
+
+                })
+
+        })
+
+
+    
+    </script>        
+</body>
+</html>
