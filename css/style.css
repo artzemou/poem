@@ -41,7 +41,7 @@ code {
   font-family: 'Josefin Slab', serif;
   font-family: 'Roboto Condensed', sans-serif;
   
-  font-weight: 100;
+  font-weight: 300;
   line-height: 1.1;
   font-size: 20px;
   letter-spacing: 0;
@@ -73,7 +73,7 @@ b{
 p, pre {
   font-family: 'Roboto Condensed', sans-serif;
   /* font-family: 'Lucida Console', 'Courier New', monospace; */
-  font-weight: 100;
+  font-weight: 300;
   font-size: 15px;
   letter-spacing: 0;
   line-height: 0;

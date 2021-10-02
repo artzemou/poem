@@ -9,22 +9,119 @@ express()
   .use('/favicon', express.static(__dirname + '/favicon'))
   .use('/css', express.static(__dirname + '/css'))
   .use('/js', express.static(__dirname + '/js'))
+  .use('/py', express.static(__dirname + '/py'))
   .use('/img', express.static(__dirname + '/img'))
   .use(bodyParser.urlencoded({extended: true}))
   .use(bodyParser.json())
-  .get('/anagramme', function(req, res) {
-    res.sendFile(path.join(__dirname + '/anagramme.html'))
+  .get('/accueil', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/accueil.html'))
   })
-  .get('/*', function(req, res) {
-    res.sendFile(path.join(__dirname + '/index.html'))
+  .get('/F', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/F.html'))
+  })
+  .get('/fLuXuS', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/fLuXuS.html'))
+  })
+  .get('/neige', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/neige.html'))
+  })
+  .get('/place', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/place.html'))
+  })
+  .get('/visage', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/visage.html'))
+  })
+  .get('/voyage', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/voyage.html'))
+  })
+  .get('/Waterloo', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/Waterloo.html'))
+  })
+  .get('/cymbale', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/cymbale.html'))
+  })
+  .get('/c', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/c.html'))
+  })
+  .get('/do', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/do.html'))
+  })
+  .get('/dodo', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/dodo.html'))
+  })
+  .get('/paradoxe', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/paradoxe.html'))
+  })
+  .get('/axe', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/axe.html'))
+  })
+  .get('/ici', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/ici.html'))
+  })
+  .get('/suite', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/suite.html'))
+  })
+  .get('/ui', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/ui.html'))
+  })
+  .get('/gospel', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/gospel.html'))
+  })
+  .get('/la', function(req, res) {find
+    res.sendFile(path.join(__dirname + '/views/la.html'))
+  })
+  .get('/anagramme', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/anagramme.html'))
+  })
+  .get('/mezzanine', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/mezzanine.html'))
+  })
+  .get('/comprendre', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/comprendre.html'))
+  })
+  .get('/ordre', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/ordre.html'))
+  })
+  .get('/floeur', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/floeur.html'))
+  })
+  .get('/deux', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/deux.html'))
+  })
+  .get('/trois', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/trois.html'))
+  })
+  .get('/si', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/si.html'))
+  })
+  .get('/sic', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/sic.html'))
+  })
+  .get('/os', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/os.html'))
+  })
+  .get('/ivoire', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/ivoire.html'))
+  })
+  .get('/reste', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/reste.html'))
+  })
+  .get('/chou', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/chou.html'))
   })
   .post('/', function(req, res) { 
     console.log(req.body.str)
-    PythonShell.run('anagram.py', {args:[req.body.str]}, function (err, results) {
+    PythonShell.run('py/anagram.py', {args:[req.body.str]}, function (err, results) {
       if (err) throw err;
       if (results[0] === '[]') results[0] = '["oops"]'
       res.json(results[0]);
     });
     
+  })
+  .get('/anagram', function(req, res) {
+    res.sendFile(path.join(__dirname + '/views/anagram.html'))
+  })
+  .get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname + '/index.html'))
   })
   .listen(PORT, () => console.log(`Listening on http://localhost:${ PORT }`))

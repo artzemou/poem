@@ -1,0 +1,17 @@
+b{
+    cursor: none;
+}
+a{
+    font-style: oblique;
+    font-weight: 400;
+}
+i{
+    font-size: 1.3em;
+}
+q::before {
+    content: '';
+}
+user agent stylesheet
+q::after {
+    content: '';
+}

@@ -146,12 +146,12 @@ def load_dict(fn):
 
 
 def write_dict(d):
-    with open ("optdict.pkl", "wb") as f:
+    with open ("resources/optdict.pkl", "wb") as f:
         pickle.dump(d, f, pickle.HIGHEST_PROTOCOL)
 
 
 def read_dict():
-    with open ("optdict.pkl", "rb") as f:
+    with open ("resources/optdict.pkl", "rb") as f:
         return pickle.load(f)
 
 
@@ -161,8 +161,8 @@ def formula(m):
 
 
 # def buildDictionary(m):
-#     # d=load_dict("liste.de.mots.francais.frgut.txt")
-#     d=load_dict("liste_francais.txt")
+#     # d=load_dict("resources/liste.de.mots.francais.frgut.txt")
+#     d=load_dict("resources/liste_francais.txt")
 #     write_dict(d)
 
 d = read_dict()

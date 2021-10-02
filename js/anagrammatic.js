@@ -50,7 +50,7 @@ $('document').ready(function () {
             console.log(countOccurences(symbols))
             let extraSymbols = countOccurences(symbols).map((symbol) => (symbol.sign))
             console.log(extraSymbols)
-            console.log($(this)[0].classList[0])
+            // console.log($(this)[0].classList[0])
             // console.log($(this).width())
             // console.log($(this).height())
 
