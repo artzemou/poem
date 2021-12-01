@@ -28,9 +28,7 @@
                 },
                 body: JSON.stringify({str: $('[name=str]').val()})
               }).then(res => res.json())
-                .then(res => {
-                    console.log(res, '????????????')
-                    
+                .then(res => {                    
                     JSON.parse(res).forEach(w => {
                         let li = document.createElement('li');
                         li.textContent = w;

@@ -3,9 +3,11 @@ const path = require('path')
 const {PythonShell} = require('python-shell')
 const PORT = process.env.PORT || 5000
 const bodyParser = require('body-parser')
+const ejs = require('ejs')
+const listEndpoints = require('express-list-endpoints')
 
 
-express()
+let app = express().set('view engine', 'ejs')
   .use('/favicon', express.static(__dirname + '/favicon'))
   .use('/css', express.static(__dirname + '/css'))
   .use('/js', express.static(__dirname + '/js'))
@@ -104,10 +106,10 @@ express()
     res.sendFile(path.join(__dirname + '/views/ivoire.html'))
   })
   .get('/reste', function(req, res) {
-    res.sendFile(path.join(__dirname + '/views/reste.html'))
+    res.render( 'reste')
   })
   .get('/chou', function(req, res) {
-    res.sendFile(path.join(__dirname + '/views/chou.html'))
+    res.render('chou')
   })
   .post('/', function(req, res) { 
     console.log(req.body.str)
@@ -121,7 +123,10 @@ express()
   .get('/anagram', function(req, res) {
     res.sendFile(path.join(__dirname + '/views/anagram.html'))
   })
+  .get('/api-endpoints', function (req, res) {
+    res.json(listEndpoints(app));
+   })
   .get('/*', function(req, res) {
-    res.sendFile(path.join(__dirname + '/index.html'))
+    res.render('index')
   })
   .listen(PORT, () => console.log(`Listening on http://localhost:${ PORT }`))
