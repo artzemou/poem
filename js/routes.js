@@ -1,14 +1,15 @@
 $(document).ready(() => {
-    fetch('/backbone', {
+    fetch('/api-endpoints', {
         method: 'post',
         headers: {
           'Accept': 'application/json, text/plain, */*',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({str: $('[name=str]').val()})
+        body: ''
       }).then(res => res.json())
         .then(res => {
-            console.log(res)
+          let routes = res.map(route => route.path)
+          console.log(routes)
 
         })
 

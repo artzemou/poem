@@ -6,8 +6,10 @@ const bodyParser = require('body-parser')
 const ejs = require('ejs')
 const listEndpoints = require('express-list-endpoints')
 
+const app = express()
 
-let app = express().set('view engine', 'ejs')
+
+app.set('view engine', 'ejs')
   .use('/favicon', express.static(__dirname + '/favicon'))
   .use('/css', express.static(__dirname + '/css'))
   .use('/js', express.static(__dirname + '/js'))
@@ -108,6 +110,9 @@ let app = express().set('view engine', 'ejs')
   .get('/reste', function(req, res) {
     res.render( 'reste')
   })
+  .get('/micro-onde', function(req, res) {
+    res.render( 'micro-onde')
+  })
   .get('/chou', function(req, res) {
     res.render('chou')
   })
@@ -123,10 +128,13 @@ let app = express().set('view engine', 'ejs')
   .get('/anagram', function(req, res) {
     res.sendFile(path.join(__dirname + '/views/anagram.html'))
   })
-  .get('/api-endpoints', function (req, res) {
-    res.json(listEndpoints(app));
+  .post('/api-endpoints', function (req, res) {
+    console.log(listEndpoints(app));
+
+    res.json(listEndpoints(app))
    })
   .get('/*', function(req, res) {
     res.render('index')
   })
+  
   .listen(PORT, () => console.log(`Listening on http://localhost:${ PORT }`))
