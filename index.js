@@ -3,7 +3,6 @@ const path = require('path')
 const {PythonShell} = require('python-shell')
 const PORT = process.env.PORT || 5000
 const bodyParser = require('body-parser')
-const ejs = require('ejs')
 const listEndpoints = require('express-list-endpoints')
 
 const app = express()
@@ -116,25 +115,22 @@ app.set('view engine', 'ejs')
   .get('/chou', function(req, res) {
     res.render('chou')
   })
-  .post('/', function(req, res) { 
-    console.log(req.body.str)
+  .post('/', function(req, res) {
     PythonShell.run('py/anagram.py', {args:[req.body.str]}, function (err, results) {
       if (err) throw err;
       if (results[0] === '[]') results[0] = '["oops"]'
       res.json(results[0]);
     });
-    
+
   })
   .get('/anagram', function(req, res) {
     res.sendFile(path.join(__dirname + '/views/anagram.html'))
   })
   .post('/api-endpoints', function (req, res) {
-    console.log(listEndpoints(app));
-
     res.json(listEndpoints(app))
    })
   .get('/*', function(req, res) {
     res.render('index')
   })
-  
+
   .listen(PORT, () => console.log(`Listening on http://localhost:${ PORT }`))
