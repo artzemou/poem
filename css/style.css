@@ -48,8 +48,11 @@ code {
 
 
 a {
+  font-family: 'Roboto Condensed', sans-serif;
   color:rgb(0, 0, 0);
   text-decoration: none;
+  font-weight: 300;
+  font-size: 15px;
 }
 a:hover{
   text-decoration: underline;
