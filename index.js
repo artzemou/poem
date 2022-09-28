@@ -126,10 +126,13 @@ app.set('view engine', 'ejs')
   .get('/chou', function(req, res) {
     res.render('chou')
   })
+  .get('/readaptee', function(req, res) {
+    res.render('readaptee')
+  })
   .get('/lexique', function(req, res) {
     res.render('lexique')
   })
-  .post('/', function(req, res) { 
+  .post('/', function(req, res) {
     PythonShell.run('py/anagram.py', {args:[req.body.str]}, function (err, results) {
       if (err) throw err;
       if (results[0] === '[]') results[0] = '["oops"]'
@@ -155,7 +158,7 @@ app.set('view engine', 'ejs')
   //       // file written successfully  /[^a-z0-9]/gi,''
   //     })
   //   })
-      
+
   //  })
   .get('/*', function(req, res) {
     res.render('index')
