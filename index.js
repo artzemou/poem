@@ -111,11 +111,23 @@ app.set('view engine', 'ejs')
   .get('/ivoire', function(req, res) {
     res.sendFile(path.join(__dirname + '/views/ivoire.html'))
   })
+  .get('/combinatoire', function(req, res) {
+    res.render('combinatoire')
+  })
+  .get('/huit', function(req, res) {
+    res.render('huit')
+  })
   .get('/baleine', function(req, res) {
     res.render('baleine')
   })
   .get('/luciole', function(req, res) {
     res.render('luciole')
+  })
+  .get('/cher', function(req, res) {
+    res.render( 'cher')
+  })
+  .get('/bariolage', function(req, res) {
+    res.render( 'bariolage')
   })
   .get('/reste', function(req, res) {
     res.render( 'reste')
@@ -123,8 +135,32 @@ app.set('view engine', 'ejs')
   .get('/micro-onde', function(req, res) {
     res.render( 'micro-onde')
   })
+  .get('/racine', function(req, res) {
+    res.render('racine')
+  })
+  .get('/art', function(req, res) {
+    res.render('art')
+  })
+  .get('/artichaut', function(req, res) {
+    res.render('artichaut')
+  })
+  .get('/accroc', function(req, res) {
+    res.render('accroc')
+  })
   .get('/chou', function(req, res) {
     res.render('chou')
+  })
+  .get('/kiwi', function(req, res) {
+    res.render('kiwi')
+  })
+  .get('/brouillage', function(req, res) {
+    res.render('brouillage')
+  })
+  .get('/que', function(req, res) {
+    res.render('que')
+  })
+  .get('/arnica', function(req, res) {
+    res.render('arnica')
   })
   .get('/readaptee', function(req, res) {
     res.render('readaptee')
