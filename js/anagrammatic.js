@@ -21,7 +21,7 @@ $('document').ready(function () {
         $('p, pre').addClass('closed')
         $('p, pre').on('click', function () {
             $(this).toggleClass('closed')
-    
+
         })
         $('p, pre').each(function () {
             var symbols = []
@@ -32,7 +32,7 @@ $('document').ready(function () {
             console.log($(this).text())
             console.log(countOccurences(symbols))
             let extraSymbols = countOccurences(symbols).map((symbol) => (symbol.sign))
-            console.log(extraSymbols)  
+            console.log(extraSymbols.join(''))
         })
         return
     }
@@ -181,7 +181,7 @@ function aleatoire(str) {
 
 let all = [], SHadō = []
 function search(str, shadow) {
-    
+
     let preList = []
     $('p, pre').each(function () {
         var $this = jQuery(this);
