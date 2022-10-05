@@ -66,8 +66,8 @@ app
     res.json(listEndpoints(app))
   })
   .use(customMiddleware)
-  .get('/avoir', async (req, res) => {
-    res.render('pages/avoir')
+  .get('/talc', async (req, res) => {
+    res.render('pages/talc')
   })
   .use(async (req, res, next) => {
     await generateRoutes(app)
