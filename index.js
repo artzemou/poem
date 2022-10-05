@@ -69,6 +69,18 @@ app
   .get('/talc', async (req, res) => {
     res.render('pages/talc')
   })
+  .get('/aneth', async (req, res) => {
+    res.render('pages/aneth')
+  })
+  .get('/elizabeth', async (req, res) => {
+    res.render('pages/elizabeth')
+  })
+  .get('/bea', async (req, res) => {
+    res.render('pages/bea')
+  })
+  .get('/r', async (req, res) => {
+    res.render('pages/r')
+  })
   .use(async (req, res, next) => {
     await generateRoutes(app)
     next()
