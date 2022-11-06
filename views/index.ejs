@@ -1,22 +1,14 @@
-<!DOCTYPE html>
-<html lang="fr">
+<%- include('./partials/header'); %>
 
-<head>
-    <%- include('./partials/head'); %>
-</head>
-
-<body>
-    <nav>
-        <ul>
-            <% for (var link of links) { %>
-                <li>
-                    <a href="<%= link %>">
-                        <%= link.replace('/', '' ) %>
-                    </a>
-                </li>
-                <% } %>
-        </ul>
-    </nav>
-</body>
-
-</html>
+<nav>
+  <ul>
+    <% for (var link of links) { %>
+    <li>
+      <a href="<%= link %>">
+        <%= link.replace('/', '' ) %>
+      </a>
+    </li>
+    <% } %>
+  </ul>
+</nav>
+<%- include('./partials/footer'); %>

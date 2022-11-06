@@ -2,8 +2,8 @@ b{
     cursor: none;
 }
 
-i{
-    font-size: 1.3em;
+i, i a{
+    font-size: 1.3em !important;
 }
 q::before {
     content: '';
