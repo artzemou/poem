@@ -1,0 +1,13 @@
+{
+  "watch": [
+    "server.js",
+    "views",
+    "routes",
+    "public"
+  ],
+  "ext": "js,ejs,json",
+  "ignore": [
+    "node_modules"
+  ],
+  "exec": "node server.js"
+}

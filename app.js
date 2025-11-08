@@ -1,96 +1,122 @@
-const express = require('express')
-const path = require('path')
-const { PythonShell } = require('python-shell')
-const bodyParser = require('body-parser')
-const listEndpoints = require('express-list-endpoints')
-const fs = require('fs')
-const Handlebars = require('handlebars')
-const links = require('./utils/links')
+import express from 'express';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+import { PythonShell } from 'python-shell';
+import favicon from 'serve-favicon';
+import extractPageReferences from './js/extractPageReferences.js';
 
-const app = express()
-app.use(express.json())
-  .set('view engine', 'ejs')
-  .set('views', path.join(__dirname, '/views'))
-  .use('/favicon', express.static(__dirname + '/favicon'))
-  .use('/css', express.static(__dirname + '/css'))
-  .use('/js', express.static(__dirname + '/js'))
-  .use('/py', express.static(__dirname + '/py'))
-  .use('/img', express.static(__dirname + '/img'))
-  .use(bodyParser.urlencoded({ extended: true }))
-  .use(bodyParser.json())
-  .post('/', (req, res) => {
-    PythonShell.run(
-      'py/anagram.py',
-      { args: [req.body.str] },
-      (err, results) => {
-        if (err) throw err
-        if (results[0] === '[]') results[0] = '["oops"]'
-        res.json(results[0])
-      }
-    )
-  })
-  .get('/anagram', (req, res) => {
-    res.sendFile(path.join(__dirname + '/views/anagram.html'))
-  })
-  .post('/api-endpoints', (req, res) => {
-    res.json(listEndpoints(app))
-  })
-  .get('/', async (req, res) => {
-    res.status(200).render('index', { links: await links() })
-  })
-  .get('/indien', async (req, res) => {
-    res.render('pages/indien', { links: await links() })
-  })
-  .get('/love', async (req, res) => {
-    res.render('pages/love', { links: await links() })
-  })
-  .get('/latin', async (req, res) => {
-    res.render('pages/latin', { links: await links() })
-  })
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const generateRoutes = async () => {
+const app = express();
 
-  const routes = await links()
-  routes.map((route) => {
-    route = encodeURI(route)
-    app.get(route, async (req, res) => {
-      if (route === '/index') {
-        res.redirect('/')
-      } else {
-        res.render(`pages${route}`, { links: await links() }, (err, html) => {
-          if (err) {
-            if (!err.view.path) {
-              const source = fs.readFileSync(
-                __dirname + '/views/partials/template.ejs',
-                'utf8'
-              )
-              const template = Handlebars.compile(source)
-              const html = template({ word: decodeURI(route).replace('/', '') })
-              fs.writeFile(
-                path.join(__dirname + `/views/pages${route}.ejs`),
-                html,
-                (err) => {
-                  if (err) throw err
-                  console.log('New Page is created.')
-                  res.redirect(route)
-                }
-              )
-            }
-          } else {
-            res.send(html)
-          }
-        })
-      }
-    })
-  })
-  app.use((req, res) => {
-    res.status(404).redirect('/')
-  })
+// --- Dev : livereload ---
+let liveReloadServer;
+if (process.env.NODE_ENV !== 'production') {
+  const livereload = await import('livereload');
+  const connectLivereload = (await import('connect-livereload')).default;
 
+  liveReloadServer = livereload.createServer();
+  liveReloadServer.watch([
+    path.join(process.cwd(), 'views'),
+    path.join(process.cwd(), 'css'),
+    path.join(process.cwd(), 'js')
+  ]);
 
+  app.use(connectLivereload());
+
+  liveReloadServer.server.once('connection', () => {
+    setTimeout(() => liveReloadServer.refresh('/'), 100);
+  });
+
+  // Watcher tous fichiers .ejs
+  fs.watch(path.join(__dirname, 'views'), { recursive: true }, (eventType, filename) => {
+    if (!filename) return;
+    if (filename.endsWith('.ejs') || filename.endsWith('.css') || filename.endsWith('.js')) {
+      liveReloadServer.refresh('/');
+    }
+  });
 }
 
-generateRoutes()
+// --- Favicon ---
+app.use(favicon(path.join(__dirname, 'img', 'favicon.ico')));
 
+// --- Middleware ---
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
-module.exports = app
+// --- Static ---
+app.use('/css', express.static(path.join(__dirname, 'css')));
+app.use('/js', express.static(path.join(__dirname, 'js')));
+app.use('/img', express.static(path.join(__dirname, 'img')));
+
+// --- POST anagram ---
+const forbiddenPatterns = [/\.js\.map$/, /\.css\.map$/];
+
+app.post('/', async (req, res) => {
+  try {
+    const results = await PythonShell.run('py/anagram.py', { args: [req.body.str] });
+    let output = results[0];
+    if (output === '[]') output = '["oops"]';
+    res.json(output);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// --- GET pages ---
+app.get('/anagram', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views/anagram.html'));
+});
+
+app.get('/', async (req, res) => {
+  const title = 'index';
+  try {
+    const { activeLinks, inactiveLinks } = await extractPageReferences();
+    res.render('index', { activeLinks, inactiveLinks, title });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Erreur serveur');
+  }
+});
+
+app.get('/:word', async (req, res) => {
+  const word = req.params.word;
+
+  if (forbiddenPatterns.some(r => r.test(word))) {
+    return res.status(404).send('Not found');
+  }
+
+  const routePath = path.join(__dirname, `views/pages/${word}.ejs`);
+  const title = word;
+
+  try {
+    const { activeLinks, inactiveLinks } = await extractPageReferences();
+
+    // Crée la page dynamiquement si elle n'existe pas
+    if (word !== 'index' && !fs.existsSync(routePath)) {
+      const templateFile = path.join(__dirname, 'views/partials/template.ejs');
+      const templateSource = fs.readFileSync(templateFile, 'utf8');
+      fs.writeFileSync(routePath, templateSource.replace(/{{word}}/g, word));
+      console.log('Nouvelle page créée:', word);
+    }
+
+    if (!fs.existsSync(routePath)) {
+      return res.status(404).send('Page introuvable');
+    }
+
+    res.render(`pages/${word}`, { activeLinks, inactiveLinks, title });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Erreur serveur');
+  }
+});
+
+// --- 404 ---
+app.use((req, res) => res.status(404).send('Page introuvable'));
+
+export default app;

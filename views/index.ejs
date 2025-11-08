@@ -2,13 +2,18 @@
 
 <nav>
   <ul>
-    <% for (var link of links) { %>
-    <li>
-      <a href="<%= link %>">
-        <%= link.replace('/', '' ) %>
-      </a>
-    </li>
+    <% for (const link of activeLinks) { %>
+      <li>
+        <a href="/<%= link %>"><%= link %></a>
+      </li>
+    <% } %>
+
+    <% for (const link of inactiveLinks) { %>
+      <li style="color: gray; cursor: not-allowed;">
+        <%= link %>
+      </li>
     <% } %>
   </ul>
 </nav>
+
 <%- include('./partials/footer'); %>
