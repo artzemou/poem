@@ -1,6 +1,5 @@
-const request = require('supertest')
-const app = require('../app')
-const assert = require('assert')
+import request from 'supertest'
+import app from '../app.js'
 
 describe('Test the root path', () => {
   it('It should response 200', async () => {
